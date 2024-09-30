@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Expires" content="0" />
+    <meta http-equiv="Pragma" content="no-cache" />
+
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <!-- <meta http-equiv=  "Expires" content=  "Sun Oct 15 2017 20:39:53 GMT+0800 (CST)"   />  -->
+    <title>移动录像</title>
+    <link rel="shortcut icon" href="../../../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="../../../assets/fonts/fonts.css" />
+    <link rel="stylesheet" href="../../../assets/css/howell.css" />
+
+    <script src="../../../assets/js/ext.js"></script>
+    <script src="../../../assets/js/jquery.min.js"></script>
+    <script src="../../../assets/js/jquery.tablesorter.js"></script>
+  </head>
+
+  <body>
+    <div class="device-usb-info">
+      <div class="device-usb-info-head">挂载设备信息</div>
+      <div class="device-usb-info-body">
+        <div class="table">
+          <table id="table" border="0" cellpadding="0" cellspacing="0">
+            <thead>
+              <tr>
+                <th>序号</th>
+                <th sort="Name">名称</th>
+                <th sort="Label">标签名称</th>
+                <th sort="DevPath">设备路径</th>
+                <th sort="MountPath">挂载上的路径</th>
+                <th sort="TotalSize">总容量</th>
+                <th sort="AvailableSize">可用容量</th>
+                <th sort="FileSystemType">文件系统</th>
+                <th sort="Mounted">是否已挂载</th>
+                <th sort="UpdateTime">更新时间</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="./device-usb-info.ts"></script>
+</html>

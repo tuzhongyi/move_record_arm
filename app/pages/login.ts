@@ -29,8 +29,6 @@ export namespace ArmLogin {
         LocalStorageService.login.save({
           username: this.html.element.username.value,
         })
-        LocalStorageService.navigation.device.robot.clear()
-        LocalStorageService.navigation.device.sortation.clear()
         location.href = '/main/main.html'
         // this.client
         //   .login(data.username, data.password)

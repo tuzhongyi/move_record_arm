@@ -124,7 +124,10 @@ export class ArmMainHtmlController {
         return '../network-config-index/network-config-index.html'
       case 'device_channel':
         return '../device-channel-index/device-channel-index.html'
-
+      case 'device_usb':
+        return '../device-usb-index/device-usb-index.html'
+      case 'device_gps':
+        return '../device-gps-index/device-gps-index.html'
       default:
         return ''
     }

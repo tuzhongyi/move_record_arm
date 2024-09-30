@@ -1,5 +1,4 @@
 import { EventEmitter } from '../../common/event-emitter'
-import { Language } from '../../common/language'
 import { LocaleCompare } from '../../common/tools/compare-tool/compare.tool'
 import { EnumTool } from '../../common/tools/enum-tool/enum.tool'
 import { Sort } from '../../common/tools/html-tool/html-table-sort.tool'
@@ -35,9 +34,8 @@ export class DeviceChannelListHtmlTable {
     '150px',
     '100px',
     'auto',
-    '100px',
+    '200px',
     'auto',
-    '100px',
     '100px',
     '100px',
     '100px',
@@ -222,7 +220,6 @@ export class DeviceChannelListHtmlTable {
         item.SourceChannel.SerialNumber ?? '-',
         await EnumTool.ProxyChannelState(item.ChannelState),
         item.SourceChannel.WebPortNo?.toString() ?? '-',
-        `${Language.ChannelPositionNo(item.PositionNo)}(${item.PositionNo})`,
       ]
       this.append(item.Id.toString(), values)
     }

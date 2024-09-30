@@ -7,16 +7,16 @@ import { HowellAuthHttp } from '../../../auth/howell-auth-http'
 export class SystemConfigRequestService {
   constructor(private http: HowellAuthHttp) {}
 
-  private _device?: SystemConfigDeviceRequestService
-  public get device(): SystemConfigDeviceRequestService {
-    if (!this._device) {
-      this._device = new SystemConfigDeviceRequestService(this.http)
+  private _package?: SystemConfigPackageRequestService
+  public get package(): SystemConfigPackageRequestService {
+    if (!this._package) {
+      this._package = new SystemConfigPackageRequestService(this.http)
     }
-    return this._device
+    return this._package
   }
 }
 
-class SystemConfigDeviceRequestService {
+class SystemConfigPackageRequestService {
   constructor(private http: HowellAuthHttp) {}
 
   async get() {

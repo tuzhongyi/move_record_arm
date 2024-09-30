@@ -20,7 +20,7 @@ class SystemUsbDeviceRequestService {
   constructor(private http: HowellAuthHttp) {}
 
   async array() {
-    let url = ArmSystemUrl.input.proxy.channel.basic()
+    let url = ArmSystemUrl.usb.device()
     let response = await this.http.get<HowellResponse<UsbDeviceInfo[]>>(url)
     if (response.FaultCode === 0) {
       return plainToInstance(UsbDeviceInfo, response.Data)

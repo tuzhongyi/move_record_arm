@@ -34,6 +34,14 @@
       {
         "id": "device_channel",
         "name": "代理通道"
+      },
+      {
+        "id": "device_usb",
+        "name": "USB"
+      },
+      {
+        "id": "device_gps",
+        "name": "坐标信息"
       }
     ]
   }

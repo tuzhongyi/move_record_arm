@@ -1,6 +1,10 @@
 import { EventMessageClient } from '../../common/event-message/event-message.client'
 import { EventMessageProxy } from '../../common/event-message/event-message.proxy'
 import {
+  DeviceChannelConfigMessageReceiverEvent,
+  DeviceChannelConfigMessageSenderEvent,
+} from '../device-channel-config/device-channel-config.message'
+import {
   DeviceChannelListMessageReceiverEvent,
   DeviceChannelListMessageSenderEvent,
 } from '../device-channel-list/device-channel-list.message'
@@ -10,13 +14,18 @@ import {
   ResultArgs,
 } from '../main/main.event'
 
-interface MessageReceiverEvent extends DeviceChannelListMessageReceiverEvent {}
+interface MessageReceiverEvent
+  extends DeviceChannelListMessageReceiverEvent,
+    DeviceChannelConfigMessageReceiverEvent {}
 
-interface MessageSenderEvent extends DeviceChannelListMessageSenderEvent {}
+interface MessageSenderEvent
+  extends DeviceChannelListMessageSenderEvent,
+    DeviceChannelConfigMessageSenderEvent {}
 
 enum MessageCommand {
   default,
   delete,
+  save,
 }
 
 export class DeviceChannelIndexMessage implements MessageReceiverEvent {
@@ -42,6 +51,10 @@ export class DeviceChannelIndexMessage implements MessageReceiverEvent {
       this.command = MessageCommand.delete
       this.client.sender.emit('confirm', args)
     })
+    this.proxy.event.on('save_confirm', (args) => {
+      this.command = MessageCommand.save
+      this.client.sender.emit('confirm', args)
+    })
     this.client.receiver.on('result', (result) => {
       switch (this.command) {
         case MessageCommand.default:
@@ -49,6 +62,9 @@ export class DeviceChannelIndexMessage implements MessageReceiverEvent {
           break
         case MessageCommand.delete:
           this.delete_result(result)
+          break
+        case MessageCommand.save:
+          this.save_result(result)
           break
         default:
           break
@@ -67,6 +83,13 @@ export class DeviceChannelIndexMessage implements MessageReceiverEvent {
     this.proxy.message({
       command: 'delete_result',
       value: result,
+      index: 0,
+    })
+  }
+  save_result(args: ResultArgs): void {
+    this.proxy.message({
+      command: 'save_result',
+      value: args,
       index: 0,
     })
   }
