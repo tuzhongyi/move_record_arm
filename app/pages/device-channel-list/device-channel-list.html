@@ -33,6 +33,12 @@
           <button class="button-white" id="btn_create">添加</button>
           <button class="button-white" id="btn_delete">删除</button>
           <button class="button-white" id="btn_discover">快速添加</button>
+          <button class="button-white" id="btn_record_start" disabled="true">
+            开始录像
+          </button>
+          <button class="button-white" id="btn_record_stop" disabled="true">
+            停止录像
+          </button>
         </div>
       </div>
       <div class="device-channel-list-body">
@@ -45,11 +51,13 @@
                 <th sort="Name">名称</th>
                 <th sort="HostAddress">IP地址</th>
                 <th sort="PortNo">端口号</th>
+                <th sort="WebPortNo">网页端口号</th>
                 <th sort="ProtocolType">协议类型</th>
                 <th sort="DeviceModel">型号</th>
                 <th sort="SerialNumber">设备序列号</th>
                 <th sort="ChannelState">状态</th>
-                <th sort="WebPortNo">网页端口号</th>
+                <th sort="Recording">自动录像</th>
+                <th sort="AutoRecord">正在录像</th>
                 <th>操作</th>
               </tr>
             </thead>

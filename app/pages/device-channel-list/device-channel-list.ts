@@ -1,4 +1,5 @@
 import { MessageBar } from '../../common/tools/controls/message-bar/message-bar'
+import { HtmlTool } from '../../common/tools/html-tool/html.tool'
 import { InputProxyChannel } from '../../data-core/models/arm/input-proxy-channel.model'
 import { DeviceChannelListBusiness } from './business/device-channel-list.business'
 import { DeviceChannelListHtmlController } from './device-channel-list.html.controller'
@@ -33,7 +34,13 @@ export namespace DeviceChannelList {
       this.message.event.on('load', this.load.bind(this))
 
       this.html.event.on('delete', this.ondelete.bind(this))
-      this.message.event.on('todelete', this.todelete.bind(this))
+      this.message.event.on('delete', this.todelete.bind(this))
+
+      this.html.event.on('recordstart', this.onrecordstart.bind(this))
+      this.message.event.on('recordstart', this.torecordstart.bind(this))
+
+      this.html.event.on('recordstop', this.onrecordstop.bind(this))
+      this.message.event.on('recordstop', this.torecordstop.bind(this))
     }
     ondiscover() {
       this.message.discover(this.window.discover)
@@ -47,17 +54,29 @@ export namespace DeviceChannelList {
       this.message.modify(this.window.details)
     }
 
-    onpicture(id: string) {
+    async onpicture(id: string) {
       let channel = this.datas.find((x) => x.Id.toString() === id)
       if (channel) {
         this.window.picture.query.title = channel.Name
       }
       this.window.picture.query.img = this.business.picture(id)
-      let width = window.innerWidth * 0.7
-      let height = (width / 16) * 9 + 50
+      let height = window.innerHeight * 0.7
+      let size = await HtmlTool.img.size(this.window.picture.query.img)
+      let ratio = size.width / size.height
+      let width = height * ratio
       this.window.picture.style.width = `${width}px`
-      this.window.picture.style.height = `${height}px`
+      this.window.picture.style.height = `${height + 50}px`
       this.message.picture(this.window.picture)
+    }
+    onrecordstart(ids: string[]) {
+      this.window.confirm.ids = ids
+      this.window.confirm.message = `确定要开始录像吗?`
+      this.message.record_start_confirm(this.window.confirm)
+    }
+    onrecordstop(ids: string[]) {
+      this.window.confirm.ids = ids
+      this.window.confirm.message = `确定要停止录像吗?`
+      this.message.record_stop_confirm(this.window.confirm)
     }
     ondelete(ids: string[]) {
       this.window.confirm.ids = ids
@@ -66,15 +85,20 @@ export namespace DeviceChannelList {
     }
     todelete() {
       if (this.window.confirm.ids.length > 0) {
-        this.business
-          .delete(this.window.confirm.ids)
-          .then((x) => {
-            MessageBar.success('操作成功')
-            this.load()
-          })
-          .catch((e) => {
-            MessageBar.error('操作失败')
-          })
+        let promise = this.business.delete(this.window.confirm.ids)
+        this.onresult(promise)
+      }
+    }
+    torecordstart() {
+      if (this.window.confirm.ids.length > 0) {
+        let pramise = this.business.record.start(this.window.confirm.ids)
+        this.onresult(pramise)
+      }
+    }
+    torecordstop() {
+      if (this.window.confirm.ids.length > 0) {
+        let promise = this.business.record.stop(this.window.confirm.ids)
+        this.onresult(promise)
       }
     }
 
@@ -88,6 +112,17 @@ export namespace DeviceChannelList {
       } else {
         this.html.table.load(this.datas)
       }
+    }
+
+    onresult(promise: Promise<any>) {
+      promise
+        .then((x) => {
+          MessageBar.success('操作成功')
+          this.load()
+        })
+        .catch((e) => {
+          MessageBar.error('操作失败')
+        })
     }
   }
 

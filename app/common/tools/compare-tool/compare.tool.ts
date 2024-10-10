@@ -22,7 +22,10 @@ export class LocaleCompare {
       return isAsc ? a - b : b - a
     }
     if (typeof a == 'boolean' && typeof b == 'boolean') {
-      return a < b ? -1 : 1
+      return a < b ? (isAsc ? -1 : 1) : isAsc ? 1 : -1
+    }
+    if (a instanceof Date && b instanceof Date) {
+      return (a.getTime() - b.getTime()) * (isAsc ? 1 : -1)
     }
     const aString = String(a)
     const bString = String(b)

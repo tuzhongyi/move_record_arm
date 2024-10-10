@@ -5,6 +5,7 @@ import { SystemNetworkUrl } from './system-network.url'
 import { SystemSecurityUrl } from './system-security.url'
 import { SystemConfigUrl } from './system_config.url'
 import { SystemDataUrl } from './system_data.url'
+import { SystemFileUrl } from './system_file.url'
 import { SystemGpsUrl } from './system_gps.url'
 import { SystemStatusUrl } from './system_status.url'
 import { SystemUsbUrl } from './system_usb.url'
@@ -65,5 +66,8 @@ export class ArmSystemUrl {
   }
   static get gps() {
     return new SystemGpsUrl(this.basic())
+  }
+  static get file() {
+    return new SystemFileUrl(this.basic())
   }
 }

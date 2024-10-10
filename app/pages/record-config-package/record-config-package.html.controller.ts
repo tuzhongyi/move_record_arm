@@ -1,12 +1,12 @@
 import { EventEmitter } from '../../common/event-emitter'
 import { HtmlTool } from '../../common/tools/html-tool/html.tool'
 import { PackageConfig } from '../../data-core/models/arm/config/package-config.model'
-import { DeviceChannelConfigEvent } from './device-channel-config.event'
+import { RecordConfigPackageEvent } from './record-config-package.event'
 
-import './device-channel-config.less'
+import './record-config-package.less'
 
-export class DeviceChannelConfigHtmlController {
-  event: EventEmitter<DeviceChannelConfigEvent> = new EventEmitter()
+export class RecordConfigPackageHtmlController {
+  event: EventEmitter<RecordConfigPackageEvent> = new EventEmitter()
 
   constructor() {
     this.init()

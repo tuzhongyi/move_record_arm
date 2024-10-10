@@ -1,20 +1,20 @@
 import { MessageBar } from '../../common/tools/controls/message-bar/message-bar'
 import { PackageConfig } from '../../data-core/models/arm/config/package-config.model'
-import { DeviceChannelConfigBusiness } from './device-channel-config.business'
-import { DeviceChannelConfigHtmlController } from './device-channel-config.html.controller'
-import { DeviceChannelConfigMessage } from './device-channel-config.message'
-import { DeviceChannelConfigWindow } from './device-channel-config.window'
+import { RecordConfigPackageBusiness } from './record-config-package.business'
+import { RecordConfigPackageHtmlController } from './record-config-package.html.controller'
+import { RecordConfigPackageMessage } from './record-config-package.message'
+import { RecordConfigPackageWindow } from './record-config-package.window'
 
-export namespace DeviceChannelConfig {
+export namespace RecordConfigPackage {
   class Controller {
     constructor() {
       this.regist()
       this.load()
     }
-    private html = new DeviceChannelConfigHtmlController()
-    private business = new DeviceChannelConfigBusiness()
-    private message = new DeviceChannelConfigMessage()
-    private window = new DeviceChannelConfigWindow()
+    private html = new RecordConfigPackageHtmlController()
+    private business = new RecordConfigPackageBusiness()
+    private message = new RecordConfigPackageMessage()
+    private window = new RecordConfigPackageWindow()
     private data?: PackageConfig
 
     private async load() {

@@ -1,4 +1,5 @@
 import { EventEmitter } from '../../common/event-emitter'
+import { Language } from '../../common/language'
 import { LocaleCompare } from '../../common/tools/compare-tool/compare.tool'
 import { EnumTool } from '../../common/tools/enum-tool/enum.tool'
 import { Sort } from '../../common/tools/html-tool/html-table-sort.tool'
@@ -8,7 +9,12 @@ import { DeviceChannelListTableEvent } from './device-channel-list.event'
 
 export class DeviceChannelListHtmlTable {
   event: EventEmitter<DeviceChannelListTableEvent> = new EventEmitter()
-  selecteds: string[] = []
+  private _selecteds: string[] = []
+  get selecteds(): InputProxyChannel[] {
+    return this._selecteds.map((id) => {
+      return this.datas.find((x) => x.Id.toString() === id)
+    }) as InputProxyChannel[]
+  }
   constructor() {
     this.regist()
     this.init()
@@ -33,9 +39,11 @@ export class DeviceChannelListHtmlTable {
     'auto',
     '150px',
     '100px',
+    '100px',
     'auto',
     '200px',
     'auto',
+    '100px',
     '100px',
     '100px',
     '100px',
@@ -49,12 +57,13 @@ export class DeviceChannelListHtmlTable {
       this.tbody,
       (ids, checked) => {
         if (checked) {
-          this.selecteds = ids.map((id) => {
+          this._selecteds = ids.map((id) => {
             return id.split('_')[1]
           })
         } else {
-          this.selecteds = []
+          this._selecteds = []
         }
+        this.event.emit('select', this.selecteds)
       }
     )
     HtmlTool.table.sort(this.thead, (sort) => {
@@ -79,11 +88,7 @@ export class DeviceChannelListHtmlTable {
       e.stopImmediatePropagation()
       let checkbox = e.target as HTMLInputElement
       let id = checkbox.id.split('_')[1]
-      if (checkbox.checked) {
-        this.selecteds.push(id)
-      } else {
-        this.selecteds.splice(this.selecteds.indexOf(id), 1)
-      }
+      this.select(id, checkbox.checked)
     })
     checkbox.type = 'checkbox'
     checkbox.id = 'checkbox_' + id
@@ -137,15 +142,20 @@ export class DeviceChannelListHtmlTable {
     let id = tr.id.split('_')[1]
     let checkbox = document.querySelector(`#checkbox_${id}`) as HTMLInputElement
     checkbox.checked = !checkbox.checked
-    if (checkbox.checked) {
-      if (!this.selecteds.includes(id)) {
-        this.selecteds.push(id)
+    this.select(id, checkbox.checked)
+  }
+
+  private select(id: string, checked: boolean) {
+    if (checked) {
+      if (!this._selecteds.includes(id)) {
+        this._selecteds.push(id)
       }
     } else {
-      if (this.selecteds.includes(id)) {
-        this.selecteds.splice(this.selecteds.indexOf(id), 1)
+      if (this._selecteds.includes(id)) {
+        this._selecteds.splice(this._selecteds.indexOf(id), 1)
       }
     }
+    this.event.emit('select', this.selecteds)
   }
 
   private onmodify(e: MouseEvent) {
@@ -195,7 +205,9 @@ export class DeviceChannelListHtmlTable {
 
   clear() {
     this.tbody.innerHTML = ''
-    this.selecteds = []
+    this.element.thead.checkall.checked = false
+    this._selecteds = []
+    this.event.emit('select', this.selecteds)
   }
 
   reload() {
@@ -215,11 +227,13 @@ export class DeviceChannelListHtmlTable {
         item.Name,
         item.SourceChannel.HostAddress,
         item.SourceChannel.PortNo.toString(),
+        item.SourceChannel.WebPortNo?.toString() ?? '-',
         await EnumTool.DeviceProtocolType(item.SourceChannel.ProtocolType),
         item.SourceChannel.DeviceModel ?? '',
         item.SourceChannel.SerialNumber ?? '-',
         await EnumTool.ProxyChannelState(item.ChannelState),
-        item.SourceChannel.WebPortNo?.toString() ?? '-',
+        Language.YesOrNo(item.AutoRecord, '-'),
+        Language.YesOrNo(item.Recording, '-'),
       ]
       this.append(item.Id.toString(), values)
     }

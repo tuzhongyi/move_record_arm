@@ -128,6 +128,10 @@ export class ArmMainHtmlController {
         return '../device-usb-index/device-usb-index.html'
       case 'device_gps':
         return '../device-gps-index/device-gps-index.html'
+      case 'record_file':
+        return '../record-file-index/record-file-index.html'
+      case 'record_config':
+        return '../record-config-index/record-config-index.html'
       default:
         return ''
     }

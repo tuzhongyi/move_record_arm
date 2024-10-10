@@ -1,9 +1,11 @@
 import { HowellHttpClient } from '../../../data-core/requests/http-client'
 import { ArmSystemRequestService } from '../../../data-core/requests/services/system/system.service'
+import { DeviceChannelListRecordBusiness } from './device-channel-list.-record.business'
 
 export class DeviceChannelListBusiness {
   private client = new HowellHttpClient.HttpClient()
   private service = new ArmSystemRequestService(this.client.http)
+  public record = new DeviceChannelListRecordBusiness(this.service)
 
   async load() {
     return this.service.input.proxy.channel.array()

@@ -1,6 +1,6 @@
 import { ConfirmWindowModel } from '../window-confirm/window-confirm.model'
 
-export class DeviceChannelConfigWindow {
+export class RecordConfigPackageWindow {
   confirm = new ConfirmWindow()
 }
 class ConfirmWindow extends ConfirmWindowModel {

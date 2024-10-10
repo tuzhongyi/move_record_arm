@@ -10,6 +10,7 @@ import { HowellResponseProcess } from '../../service-process'
 import { SystemConfigRequestService } from './config/system-config.service'
 import { SystemDataRequestService } from './data/system-data.service'
 import { SystemDeviceRequestService } from './device/system-device.service'
+import { SystemFileRequestService } from './file/system-usb.service'
 import { SystemGpsRequestService } from './gps/system-gps.service'
 import { SystemInputProxyRequestService } from './input-proxy/system-input-proxy.service'
 import { SystemNetworkRequestService } from './network/system-network.service'
@@ -127,5 +128,13 @@ export class ArmSystemRequestService {
       this._gps = new SystemGpsRequestService(this.http)
     }
     return this._gps
+  }
+
+  private _file?: SystemFileRequestService
+  public get file(): SystemFileRequestService {
+    if (!this._file) {
+      this._file = new SystemFileRequestService(this.http)
+    }
+    return this._file
   }
 }

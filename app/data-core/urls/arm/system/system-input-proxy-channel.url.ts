@@ -12,4 +12,13 @@ export class SystemInputProxyChannelsUrl extends AbstractUrl {
     }
     return `${this.item(id)}/Picture?StreamingChannel=${stream}${type_params}`
   }
+
+  record = {
+    start: <T = string>(id: T) => {
+      return `${this.item(id)}/StartRecord`
+    },
+    stop: <T = string>(id: T) => {
+      return `${this.item(id)}/StopRecord`
+    },
+  }
 }

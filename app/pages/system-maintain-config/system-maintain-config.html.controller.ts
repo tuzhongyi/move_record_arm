@@ -49,6 +49,7 @@ export class SystemMaintainConfigHtmlController {
       input: document.getElementById(
         'button_upgrade_input'
       ) as HTMLButtonElement,
+      state: document.getElementById('upgrade_state') as HTMLSpanElement,
     },
   }
 

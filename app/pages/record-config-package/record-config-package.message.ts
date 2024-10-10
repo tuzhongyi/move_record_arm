@@ -3,18 +3,18 @@ import { EventMessageClient } from '../../common/event-message/event-message.cli
 import { ResultArgs } from '../main/main.event'
 import { ConfirmWindowModel } from '../window-confirm/window-confirm.model'
 
-export interface DeviceChannelConfigMessageReceiverEvent {
+export interface RecordConfigPackageMessageReceiverEvent {
   save_result(args: ResultArgs): void
 }
-export interface DeviceChannelConfigMessageSenderEvent {
+export interface RecordConfigPackageMessageSenderEvent {
   save_confirm(window: ConfirmWindowModel): void
 }
 interface MessageEvent {
   save(): void
 }
 
-export class DeviceChannelConfigMessage
-  implements DeviceChannelConfigMessageSenderEvent
+export class RecordConfigPackageMessage
+  implements RecordConfigPackageMessageSenderEvent
 {
   event: EventEmitter<MessageEvent> = new EventEmitter()
   constructor() {
@@ -22,8 +22,8 @@ export class DeviceChannelConfigMessage
   }
 
   private client = new EventMessageClient<
-    DeviceChannelConfigMessageSenderEvent,
-    DeviceChannelConfigMessageReceiverEvent
+    RecordConfigPackageMessageSenderEvent,
+    RecordConfigPackageMessageReceiverEvent
   >(['save_confirm'])
   private reigst() {
     this.client.receiver.on('save_result', (args) => {

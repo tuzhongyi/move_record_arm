@@ -30,6 +30,18 @@ export class InputProxyChannel implements IIdNameModel<number> {
   ChannelState?: ProxyChannelState
   /**	String	通道GUID	O */
   Guid?: string
+  /**	String	平台接入ID	O	*/
+  PlatformAccessId?: string
+  /**	String	视频分析接入方式	O	*/
+  AnalysisAccessType?: string
+  /**	String	用途	O	*/
+  Usage?: string
+  /**	Boolean	过滤策略3是否启用，防止部分厢房无法识别湿垃圾桶	O	*/
+  Filter3Enabled?: boolean
+  /**	Boolean	是否正在录像	O	*/
+  Recording?: boolean
+  /**	Boolean	是否自动录像	O	*/
+  AutoRecord?: boolean
 
   static create() {
     let data = new InputProxyChannel()

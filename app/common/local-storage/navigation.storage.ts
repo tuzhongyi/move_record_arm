@@ -8,6 +8,8 @@ import { NavigationDeviceUsbStorage } from './navigation-device-usb.storage'
 import { NavigationNetworkConfigStorage } from './navigation-network-config.storage'
 import { NavigationNetworkFrpStorage } from './navigation-network-frp.storage'
 import { NavigationNetworkServerStorage } from './navigation-network-server.storage'
+import { NavigationRecordConfigStorage } from './navigation-record-config.storage'
+import { NavigationRecordFileStorage } from './navigation-record-file.storage'
 import { NavigationSystemDeviceStorage } from './navigation-system-device.storage'
 import { NavigationSystemIOStorage } from './navigation-system-io.storage'
 import { NavigationSystemMaintainStorage } from './navigation-system-maintain.storage'
@@ -72,5 +74,9 @@ export class NavigationStorage implements IStorage<NavigationIndex> {
     model: new NavigationAIModelStorage(),
     event: new NavigationAIEventStorage(),
     server: new NavigationAIAnalysisServerStorage(),
+  }
+  record = {
+    config: new NavigationRecordConfigStorage(),
+    file: new NavigationRecordFileStorage(),
   }
 }

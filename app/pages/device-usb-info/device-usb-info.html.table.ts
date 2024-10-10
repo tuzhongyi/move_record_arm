@@ -56,14 +56,8 @@ export class DeviceUsbInfoHtmlTable {
       HtmlTool.set(item.Label, '-'),
       HtmlTool.set(item.DevPath, '-'),
       HtmlTool.set(item.MountPath, '-'),
-      item.TotalSize
-        ? `${Math.round((item.TotalSize / 1024 / 1024 / 1024) * 100) / 100}G`
-        : '-',
-      item.AvailableSize
-        ? `${
-            Math.round((item.AvailableSize / 1024 / 1024 / 1024) * 100) / 100
-          }G`
-        : '-',
+      HtmlTool.set(item.TotalSize, '-'),
+      HtmlTool.set(item.AvailableSize, '-'),
       HtmlTool.set(item.FileSystemType, '-'),
       Language.YesOrNo(item.Mounted),
       item.UpdateTime ? item.UpdateTime.format('yyyy-MM-dd HH:mm:ss') : '-',

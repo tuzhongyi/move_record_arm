@@ -65,8 +65,6 @@ export namespace DeviceChannelIndex {
       switch (index) {
         case 0:
           return '../device-channel-list/device-channel-list.html'
-        case 1:
-          return '../device-channel-config/device-channel-config.html'
         default:
           return ''
       }

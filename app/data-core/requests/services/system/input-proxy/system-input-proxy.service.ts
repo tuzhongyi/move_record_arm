@@ -84,4 +84,24 @@ class SystemInputProxyChannelRequestService {
     return ArmSystemUrl.input.proxy.channel.picture(id, stream, type)
     // return this.http.get<string>(url)
   }
+
+  private _record?: SystemInputProxyChannelRecordRequestService
+  public get record(): SystemInputProxyChannelRecordRequestService {
+    if (!this._record) {
+      this._record = new SystemInputProxyChannelRecordRequestService(this.http)
+    }
+    return this._record
+  }
+}
+class SystemInputProxyChannelRecordRequestService {
+  constructor(private http: HowellAuthHttp) {}
+
+  start<T = string>(id: T) {
+    let url = ArmSystemUrl.input.proxy.channel.record.start(id)
+    return this.http.post<HowellResponse<InputProxyChannel>>(url)
+  }
+  stop<T = string>(id: T) {
+    let url = ArmSystemUrl.input.proxy.channel.record.stop(id)
+    return this.http.post<HowellResponse<InputProxyChannel>>(url)
+  }
 }

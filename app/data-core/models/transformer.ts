@@ -1,6 +1,37 @@
 import { TransformationType, TransformFnParams } from 'class-transformer'
 import { Time } from './common/time.model'
 
+export function transformSize(params: TransformFnParams) {
+  if (!params.value) return params.value
+  if (params.type === TransformationType.PLAIN_TO_CLASS) {
+    let value = params.value / 1024
+    if (value < 1) {
+      return `${params.value}字节`
+    }
+    value = value / 1024
+    if (value < 1) {
+      return `${Math.round((params.value / 1024) * 100) / 100}KB`
+    }
+    value = value / 1024
+    if (value < 1) {
+      return `${Math.round((params.value / 1024 / 1024) * 100) / 100}MB`
+    }
+    value = value / 1024
+    if (value < 1) {
+      return `${Math.round((params.value / 1024 / 1024 / 1024) * 100) / 100}GB`
+    }
+    value = value / 1024
+    if (value < 1) {
+      return `${
+        Math.round((params.value / 1024 / 1024 / 1024 / 1024) * 100) / 100
+      }TB`
+    }
+    return `${params.value}字节`
+  } else {
+    return params.value
+  }
+}
+
 export function transformRound(params: TransformFnParams, number: number) {
   if (!params.value) return params.value
   if (params.type === TransformationType.PLAIN_TO_CLASS) {

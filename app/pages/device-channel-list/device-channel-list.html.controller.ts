@@ -14,6 +14,10 @@ export class DeviceChannelListHtmlController {
       create: document.getElementById('btn_create') as HTMLButtonElement,
       delete: document.getElementById('btn_delete') as HTMLButtonElement,
       discover: document.getElementById('btn_discover') as HTMLButtonElement,
+      record: {
+        start: document.getElementById('btn_record_start') as HTMLButtonElement,
+        stop: document.getElementById('btn_record_stop') as HTMLButtonElement,
+      },
     },
   }
 
@@ -27,7 +31,7 @@ export class DeviceChannelListHtmlController {
 
   private inited = false
 
-  init() {
+  private init() {
     Manager.capability.inputproxy
       .then((x) => {
         if (!x.Searching) {
@@ -40,13 +44,16 @@ export class DeviceChannelListHtmlController {
       })
   }
 
-  regist() {
+  private regist() {
     this.element.button.create.addEventListener('click', () => {
       this.event.emit('create')
     })
     this.element.button.delete.addEventListener('click', () => {
       if (this.table.selecteds && this.table.selecteds.length > 0) {
-        this.event.emit('delete', this.table.selecteds)
+        this.event.emit(
+          'delete',
+          this.table.selecteds.map((x) => x.Id)
+        )
       }
     })
     this.element.button.discover.addEventListener('click', () => {
@@ -54,6 +61,35 @@ export class DeviceChannelListHtmlController {
     })
     this.element.search.button.addEventListener('click', () => {
       this.event.emit('search', this.element.search.text.value)
+    })
+    this.table.event.on('select', (selecteds) => {
+      if (selecteds.length === 0) {
+        this.element.button.record.start.disabled = true
+        this.element.button.record.stop.disabled = true
+      } else {
+        this.element.button.record.start.disabled = selecteds.some((x) => {
+          return x.Recording === true
+        })
+        this.element.button.record.stop.disabled = selecteds.some((x) => {
+          return x.Recording === false
+        })
+      }
+    })
+    this.element.button.record.start.addEventListener('click', () => {
+      let ids = this.table.selecteds
+        .filter((x) => x.Recording === false)
+        .map((x) => x.Id)
+      if (ids && ids.length > 0) {
+        this.event.emit('recordstart', ids)
+      }
+    })
+    this.element.button.record.stop.addEventListener('click', () => {
+      let ids = this.table.selecteds
+        .filter((x) => x.Recording === true)
+        .map((x) => x.Id)
+      if (ids && ids.length > 0) {
+        this.event.emit('recordstop', ids)
+      }
     })
   }
 }

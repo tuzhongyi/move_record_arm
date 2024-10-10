@@ -44,5 +44,19 @@
         "name": "坐标信息"
       }
     ]
+  },
+  "record": {
+    "id": "record",
+    "name": "录像",
+    "children": [
+      {
+        "id": "record_file",
+        "name": "录像文件"
+      },
+      {
+        "id": "record_config",
+        "name": "录像存储配置"
+      }
+    ]
   }
 }

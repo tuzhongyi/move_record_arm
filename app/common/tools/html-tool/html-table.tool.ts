@@ -57,6 +57,7 @@ export class HTMLTableElementTool {
     }
 
     tbody.appendChild(row)
+    return row
   }
 
   checkall(
