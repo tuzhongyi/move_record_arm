@@ -25,6 +25,24 @@ export class EnumTool {
         })
     })
   }
+  static async CameraSide(value?: string, def?: string): Promise<string> {
+    return new Promise<string>((resolve) => {
+      Manager.capability.inputproxy
+        .then((capability) => {
+          if (capability.CameraSides) {
+            let _enum = capability.CameraSides.find((x) => x.Value == value)
+            if (_enum) {
+              resolve(_enum.Name)
+              return
+            }
+          }
+          resolve(Language.CameraSide(value, def))
+        })
+        .catch((x) => {
+          resolve(Language.CameraSide(value, def))
+        })
+    })
+  }
 
   static async DeviceProtocolType(value?: DeviceProtocolType): Promise<string> {
     return new Promise<string>((resolve) => {

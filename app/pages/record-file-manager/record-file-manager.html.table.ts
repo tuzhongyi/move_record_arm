@@ -1,3 +1,4 @@
+import { instanceToPlain } from 'class-transformer'
 import '../../../assets/styles/table-sticky.less'
 import { EventEmitter } from '../../common/event-emitter'
 import { LocaleCompare } from '../../common/tools/compare-tool/compare.tool'
@@ -45,6 +46,16 @@ export class RecordFileManagerHtmlTable {
           sort.direction === 'asc'
         )
       } else {
+        if (sort.active === 'FileSize') {
+          let a_plain = instanceToPlain(a)
+          let b_plain = instanceToPlain(b)
+
+          return LocaleCompare.compare(
+            a_plain.FileSize,
+            b_plain.FileSize,
+            sort.direction === 'asc'
+          )
+        }
         return (
           LocaleCompare.compare(
             a[sort.active],

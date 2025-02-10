@@ -52,7 +52,7 @@ export class DeviceChannelListHtmlController {
       if (this.table.selecteds && this.table.selecteds.length > 0) {
         this.event.emit(
           'delete',
-          this.table.selecteds.map((x) => x.Id)
+          this.table.selecteds.map((x) => x.Id.toString())
         )
       }
     })

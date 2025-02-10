@@ -10,7 +10,8 @@ export class InputProxyChannel implements IIdNameModel<number> {
   /**	String	通道名称	M	*/
   Name!: string
   /**
-   * Int32	机位，从1开始。
+   * Int32
+   * 机位，从1开始。
    * 1-10舱外
    * 11-20舱内
    * 21-30 红外
@@ -42,6 +43,18 @@ export class InputProxyChannel implements IIdNameModel<number> {
   Recording?: boolean
   /**	Boolean	是否自动录像	O	*/
   AutoRecord?: boolean
+
+  /**
+   * String
+   * 机位方向:
+   * Left：左侧
+   * Right：右侧
+   * Front：前方
+   * Back：后方
+   * O
+   * RW
+   **/
+  Side?: string
 
   static create() {
     let data = new InputProxyChannel()

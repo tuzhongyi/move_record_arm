@@ -35,6 +35,7 @@ export class DeviceChannelDetailsHtmlController {
     PositionNoLanguage: document.getElementById(
       'PositionNoLanguage'
     ) as HTMLSpanElement,
+    Side: document.getElementById('Side') as HTMLSelectElement,
     buttons: {
       ok: document.getElementById('ok') as HTMLButtonElement,
       cancel: document.getElementById('cancel') as HTMLButtonElement,
@@ -53,6 +54,16 @@ export class DeviceChannelDetailsHtmlController {
               Name: item.Name,
             }
             HtmlTool.select.append(_item, this.element.ProtocolType)
+          })
+        }
+        if (x.CameraSides) {
+          this.element.Side.innerHTML = ''
+          x.CameraSides.forEach((item, index) => {
+            let _item: IIdNameModel = {
+              Id: item.Value,
+              Name: item.Name,
+            }
+            HtmlTool.select.append(_item, this.element.Side)
           })
         }
         this.inited = true
@@ -99,6 +110,7 @@ export class DeviceChannelDetailsHtmlController {
     this.element.WebPortNo.value =
       data.SourceChannel.WebPortNo?.toString() ?? ''
     this.element.DeviceModel.value = data.SourceChannel.DeviceModel ?? ''
+    this.element.Side.value = data.Side ?? ''
 
     this.changePositionNo(data.PositionNo ?? 1)
   }
@@ -138,6 +150,7 @@ export class DeviceChannelDetailsHtmlController {
     data.SourceChannel.DeviceModel = HtmlTool.get(
       this.element.DeviceModel.value
     )
+    data.Side = HtmlTool.get(this.element.Side.value)
     return data
   }
 }

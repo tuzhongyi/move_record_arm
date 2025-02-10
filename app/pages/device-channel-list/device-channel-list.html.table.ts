@@ -47,6 +47,7 @@ export class DeviceChannelListHtmlTable {
     '100px',
     '100px',
     '100px',
+    '100px',
   ]
   _sort?: Sort
   datas: InputProxyChannel[] = []
@@ -232,6 +233,7 @@ export class DeviceChannelListHtmlTable {
         item.SourceChannel.DeviceModel ?? '',
         item.SourceChannel.SerialNumber ?? '-',
         await EnumTool.ProxyChannelState(item.ChannelState),
+        await EnumTool.CameraSide(item.Side, '-'),
         Language.YesOrNo(item.AutoRecord, '-'),
         Language.YesOrNo(item.Recording, '-'),
       ]

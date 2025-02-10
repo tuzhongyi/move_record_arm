@@ -8,4 +8,6 @@ export class PackageConfig implements IModel {
   PackageFormat!: string
   /**	Boolean	自动覆盖	M	*/
   AutoOverlay!: boolean
+  /**	Boolean	音频录像是否启用，默认：false	O	RW */
+  AudioEnabled?: boolean
 }

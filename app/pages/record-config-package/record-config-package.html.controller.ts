@@ -17,6 +17,7 @@ export class RecordConfigPackageHtmlController {
     Duration: document.getElementById('Duration') as HTMLInputElement,
     PackageFormat: document.getElementById('PackageFormat') as HTMLInputElement,
     AutoOverlay: document.getElementById('AutoOverlay') as HTMLInputElement,
+    AudioEnabled: document.getElementById('AudioEnabled') as HTMLInputElement,
     save: document.getElementById('save') as HTMLButtonElement,
   }
 
@@ -37,6 +38,7 @@ export class RecordConfigPackageHtmlController {
     data.Duration = HtmlTool.get(this.element.Duration.value, 'number')
     data.PackageFormat = HtmlTool.get(this.element.PackageFormat.value)
     data.AutoOverlay = this.element.AutoOverlay.checked
+    data.AudioEnabled = this.element.AudioEnabled.checked
     return data
   }
 
@@ -44,5 +46,6 @@ export class RecordConfigPackageHtmlController {
     this.element.Duration.value = HtmlTool.set(data.Duration)
     this.element.PackageFormat.value = HtmlTool.set(data.PackageFormat)
     this.element.AutoOverlay.checked = data.AutoOverlay
+    this.element.AudioEnabled.checked = data.AudioEnabled ?? false
   }
 }

@@ -19,8 +19,8 @@ export namespace DeviceChannelList {
     datas: InputProxyChannel[] = []
 
     async load() {
-      this.datas = await this.business.load()
       this.html.table.clear()
+      this.datas = await this.business.load()
       this.html.table.load(this.datas)
     }
 
@@ -85,8 +85,20 @@ export namespace DeviceChannelList {
     }
     todelete() {
       if (this.window.confirm.ids.length > 0) {
-        let promise = this.business.delete(this.window.confirm.ids)
-        this.onresult(promise)
+        this.business
+          .delete(this.window.confirm.ids)
+          .then((x) => {
+            MessageBar.success('操作成功')
+
+            this.datas = this.datas.filter(
+              (x) => !this.window.confirm.ids.includes(x.Id.toString())
+            )
+            this.html.table.clear()
+            this.html.table.load(this.datas)
+          })
+          .catch((e) => {
+            MessageBar.error('操作失败')
+          })
       }
     }
     torecordstart() {

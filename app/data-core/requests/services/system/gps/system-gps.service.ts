@@ -59,7 +59,7 @@ class SystemGpsInfoRequestService {
   async get() {
     let url = ArmSystemUrl.gps.info()
     let response = await this.http.get<HowellResponse<GpsInfo>>(url)
-    if (response.FaultCode !== 0) {
+    if (response.FaultCode === 0) {
       if (response.Data) {
         return plainToInstance(GpsInfo, response.Data)
       }

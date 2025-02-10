@@ -404,6 +404,20 @@ export class Language {
         return def
     }
   }
+  static CameraSide(value?: string, def = '未知') {
+    switch (value) {
+      case 'Left':
+        return '左侧'
+      case 'Right':
+        return '右侧'
+      case 'Front':
+        return '前方'
+      case 'Back':
+        return '后方'
+      default:
+        return def
+    }
+  }
 }
 
 export class Icon {

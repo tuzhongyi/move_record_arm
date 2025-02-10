@@ -17,6 +17,10 @@ export class HowellAuthHttp {
     })
   }
 
+  video(path: string, config?: AxiosRequestConfig) {
+    const myHeaders = this.getHttpHeaders('GET', path, config)
+  }
+
   get<R>(path: string, config?: AxiosRequestConfig) {
     return new Promise<R>((resolve, reject) => {
       const myHeaders = this.getHttpHeaders('GET', path, config)
