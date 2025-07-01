@@ -1,0 +1,65 @@
+.system-maintain-command {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+
+  &-filter {
+    margin-bottom: 20px;
+
+    .forms {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      flex-direction: unset;
+      gap: 40px;
+
+      .form-item {
+        width: 40%;
+        height: 50px;
+
+        &.submit {
+          margin: 0;
+          width: auto;
+          gap: 10px;
+
+
+        }
+      }
+    }
+  }
+
+
+  @filter-height: 50px;
+
+
+
+  &-body {
+    width: 100%;
+    height: calc(100% - @filter-height - 20px);
+
+    background-color: #f7f7f7;
+    padding: 20px;
+    box-sizing: border-box;
+
+    .content {
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      padding: 5px 20px;
+      box-sizing: border-box;
+
+      border: none;
+      background-color: transparent;
+      resize: none;
+      font-size: 16px;
+      font-family: Source Han Sans CN Normal;
+
+    }
+  }
+
+  .button-white {
+    width: 90px;
+    height: 30px;
+  }
+}

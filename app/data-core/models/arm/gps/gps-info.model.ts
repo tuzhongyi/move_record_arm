@@ -1,6 +1,8 @@
-import { Transform } from 'class-transformer'
+import { Transform, Type } from 'class-transformer'
+import 'reflect-metadata'
 import { IModel } from '../../model.interface'
 import { transformDateTime } from '../../transformer'
+import { GpsSignal } from './gps-signal.model'
 
 /**	GpsInfo (GPS信息)	*/
 export class GpsInfo implements IModel {
@@ -21,4 +23,11 @@ export class GpsInfo implements IModel {
   /**	DateTime	数据更新时间	M	*/
   @Transform(transformDateTime)
   UpdateTime!: Date
+  /**	Double	加速度计X轴加速度，单位为m/s2	O	R */
+  AccX?: number
+  /**	Double	加速度计Y轴加速度，单位为m/s2	O	R */
+  AccY?: number
+  /**	GpsSignal[]	卫星信号强度，格式：编号1:强度1，编号2:强度2	O	R */
+  @Type(() => GpsSignal)
+  Signals?: GpsSignal[]
 }

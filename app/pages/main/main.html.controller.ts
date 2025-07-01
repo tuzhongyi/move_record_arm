@@ -120,8 +120,12 @@ export class ArmMainHtmlController {
         return '../system-status-index/system-status-index.html'
       case 'system_maintain':
         return '../system-maintain-index/system-maintain-index.html'
+      case 'system_io':
+        return '../system-io-index/system-io-index.html'
       case 'network_config':
         return '../network-config-index/network-config-index.html'
+      case 'network_server':
+        return '../network-server-index/network-server-index.html'
       case 'device_channel':
         return '../device-channel-index/device-channel-index.html'
       case 'device_usb':

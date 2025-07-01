@@ -1,6 +1,7 @@
 import { FactoryResetMode } from '../../../enums/factory-reset-mode.enum'
 import { BaseUrl } from '../../base.url'
 import { SystemInputProxyUrl } from './system-input-proxy.url'
+import { SystemIOUrl } from './system-io.url'
 import { SystemNetworkUrl } from './system-network.url'
 import { SystemSecurityUrl } from './system-security.url'
 import { SystemConfigUrl } from './system_config.url'
@@ -39,6 +40,9 @@ export class ArmSystemUrl {
   static updateFirmware() {
     return `${this.basic()}/UpdateFirmware`
   }
+  static command() {
+    return `${this.basic()}/Commands`
+  }
 
   static get data() {
     return new SystemDataUrl(this.basic())
@@ -69,5 +73,9 @@ export class ArmSystemUrl {
   }
   static get file() {
     return new SystemFileUrl(this.basic())
+  }
+
+  static get io() {
+    return new SystemIOUrl(this.basic())
   }
 }

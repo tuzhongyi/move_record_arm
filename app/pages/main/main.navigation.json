@@ -14,6 +14,10 @@
       {
         "id": "system_maintain",
         "name": "系统维护"
+      },
+      {
+        "id": "system_io",
+        "name": "输入/输出"
       }
     ]
   },
@@ -24,6 +28,10 @@
       {
         "id": "network_config",
         "name": "基本配置"
+      },
+      {
+        "id": "network_server",
+        "name": "服务器配置"
       }
     ]
   },

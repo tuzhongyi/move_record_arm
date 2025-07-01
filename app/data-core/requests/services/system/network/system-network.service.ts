@@ -1,5 +1,6 @@
 import { instanceToPlain, plainToInstance } from 'class-transformer'
 import { NetworkInterface } from '../../../../models/arm/network-interface.model'
+import { Platform } from '../../../../models/arm/platform.model'
 import { SSH } from '../../../../models/arm/ssh.model'
 import { NetworkCapability } from '../../../../models/capabilities/arm/network-capability.model'
 import { HowellResponse } from '../../../../models/response'
@@ -32,7 +33,19 @@ export class SystemNetworkRequestService {
     }
     return this._ssh
   }
+  private _platform?: {
+    access: SystemNetworkPlatformAccessRequestService
+  }
+  public get platform() {
+    if (!this._platform) {
+      this._platform = {
+        access: new SystemNetworkPlatformAccessRequestService(this.http),
+      }
+    }
+    return this._platform
+  }
 }
+
 class SystemNetworkInterfaceRequestService {
   constructor(private http: HowellAuthHttp) {}
 
@@ -68,5 +81,30 @@ class SystemNetworkSSHRequestService {
     let url = ArmSystemUrl.network.ssh()
     let response = await this.http.put<any, HowellResponse<SSH>>(url, plain)
     return plainToInstance(SSH, response.Data)
+  }
+}
+class SystemNetworkPlatformAccessRequestService {
+  constructor(private http: HowellAuthHttp) {}
+
+  get() {
+    let url = ArmSystemUrl.network.platform.basic()
+    return this.http.get<HowellResponse<Platform>>(url).then((x) => {
+      return HowellResponseProcess.item(x, Platform)
+    })
+  }
+  async update(data: Platform) {
+    let plain = instanceToPlain(data)
+    let url = ArmSystemUrl.network.platform.basic()
+    return this.http
+      .put<any, HowellResponse<Platform>>(url, plain)
+      .then((x) => {
+        return HowellResponseProcess.item(x, Platform)
+      })
+  }
+  testing() {
+    let url = ArmSystemUrl.network.platform.testing()
+    return this.http.post<HowellResponse>(url).then((x) => {
+      return x.FaultCode === 0
+    })
   }
 }

@@ -68,10 +68,10 @@ export class DeviceChannelListHtmlController {
         this.element.button.record.stop.disabled = true
       } else {
         this.element.button.record.start.disabled = selecteds.some((x) => {
-          return x.Recording === true
+          return x.Recording !== false
         })
         this.element.button.record.stop.disabled = selecteds.some((x) => {
-          return x.Recording === false
+          return x.Recording !== true
         })
       }
     })

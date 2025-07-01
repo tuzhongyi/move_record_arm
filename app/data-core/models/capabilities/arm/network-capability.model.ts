@@ -1,8 +1,12 @@
 import { IModel } from '../../model.interface'
+import { ICapability } from '../capability.interface'
 import { EnumNameValue } from '../enum-name-value.model'
 
 /**	NetworkCapability (网络能力)	*/
-export class NetworkCapability implements IModel {
+export class NetworkCapability
+  implements IModel, ICapability<EnumNameValue[] | boolean | undefined>
+{
+  [key: string]: boolean | EnumNameValue[] | undefined
   /**	Boolean	SSH是否支持	M	*/ SSH!: boolean
   /**	Boolean	平台接入是否支持	M	*/ PlatformAccess!: boolean
   /**	Boolean	平台部署是否支持	M	*/ Deployment!: boolean

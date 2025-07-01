@@ -3,8 +3,11 @@ import { ProcessState } from '../../../data-core/enums/process-state.enum'
 import { ProxyChannelState } from '../../../data-core/enums/proxy-channel-state.enum'
 import { Manager } from '../../../data-core/requests/managers/manager'
 import { Language } from '../../language'
+import { EnumDeviceTool } from './enum-device.tool'
 
 export class EnumTool {
+  static device = new EnumDeviceTool()
+
   static async ProxyChannelState(value?: ProxyChannelState): Promise<string> {
     return new Promise<string>((resolve) => {
       Manager.capability.inputproxy

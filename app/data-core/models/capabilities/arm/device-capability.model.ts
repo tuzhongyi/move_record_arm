@@ -1,8 +1,12 @@
 import { IModel } from '../../model.interface'
+import { ICapability } from '../capability.interface'
 import { EnumNameValue } from '../enum-name-value.model'
 
 /**	DeviceCapability (设备能力)	*/
-export class DeviceCapability implements IModel {
+export class DeviceCapability
+  implements IModel, ICapability<EnumNameValue[] | boolean | undefined>
+{
+  [key: string]: boolean | EnumNameValue[] | undefined
   /**	Boolean	NTP校时是否支持	M	*/
   NTPServer!: boolean
   /**	EnumValue[]	NTP校时模式	O	*/
