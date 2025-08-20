@@ -37,6 +37,7 @@ export class DeviceChannelDetailsHtmlController {
     ) as HTMLSpanElement,
     CameraSide: document.getElementById('CameraSide') as HTMLSelectElement,
     Audio: document.getElementById('Audio') as HTMLInputElement,
+    IORecorded: document.getElementById('IORecorded') as HTMLInputElement,
     buttons: {
       ok: document.getElementById('ok') as HTMLButtonElement,
       cancel: document.getElementById('cancel') as HTMLButtonElement,
@@ -113,6 +114,7 @@ export class DeviceChannelDetailsHtmlController {
     this.element.DeviceModel.value = data.SourceChannel.DeviceModel ?? ''
     this.element.CameraSide.value = data.CameraSide ?? ''
     this.element.Audio.checked = data.AudioEnabled ?? false
+    this.element.IORecorded.checked = data.IORecorded ?? false
 
     this.changePositionNo(data.PositionNo ?? 1)
   }
@@ -154,6 +156,7 @@ export class DeviceChannelDetailsHtmlController {
     )
     data.CameraSide = HtmlTool.get(this.element.CameraSide.value)
     data.AudioEnabled = this.element.Audio.checked
+    data.IORecorded = this.element.IORecorded.checked
     return data
   }
 }

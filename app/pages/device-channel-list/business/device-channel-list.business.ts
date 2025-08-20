@@ -1,6 +1,6 @@
 import { HowellHttpClient } from '../../../data-core/requests/http-client'
 import { ArmSystemRequestService } from '../../../data-core/requests/services/system/system.service'
-import { DeviceChannelListRecordBusiness } from './device-channel-list.-record.business'
+import { DeviceChannelListRecordBusiness } from './device-channel-list-record.business'
 
 export class DeviceChannelListBusiness {
   private client = new HowellHttpClient.HttpClient()

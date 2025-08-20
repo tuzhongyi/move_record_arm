@@ -9,6 +9,9 @@ export class SystemNetworkUrl extends AbstractUrl {
   ssh() {
     return `${this.basic()}/SSH`
   }
+  nvr() {
+    return `${this.basic()}/NVR`
+  }
   capability() {
     return `${this.basic()}/Capability`
   }

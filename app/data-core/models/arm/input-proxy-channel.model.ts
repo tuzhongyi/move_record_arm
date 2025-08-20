@@ -59,6 +59,9 @@ export class InputProxyChannel implements IIdNameModel<number> {
   /**	Boolean	是否启用音频	O	RW */
   AudioEnabled?: boolean
 
+  /**	Boolean	是否启用IO输入联动录像	O	RW */
+  IORecorded?: boolean
+
   static create() {
     let data = new InputProxyChannel()
     data.Id = 0

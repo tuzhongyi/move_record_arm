@@ -1,5 +1,6 @@
 import { instanceToPlain, plainToInstance } from 'class-transformer'
 import { NetworkInterface } from '../../../../models/arm/network-interface.model'
+import { NVRConfig } from '../../../../models/arm/nvr-config.model'
 import { Platform } from '../../../../models/arm/platform.model'
 import { SSH } from '../../../../models/arm/ssh.model'
 import { NetworkCapability } from '../../../../models/capabilities/arm/network-capability.model'
@@ -43,6 +44,13 @@ export class SystemNetworkRequestService {
       }
     }
     return this._platform
+  }
+  private _nvr?: SystemNetworkNVRRequestService
+  public get nvr(): SystemNetworkNVRRequestService {
+    if (!this._nvr) {
+      this._nvr = new SystemNetworkNVRRequestService(this.http)
+    }
+    return this._nvr
   }
 }
 
@@ -106,5 +114,23 @@ class SystemNetworkPlatformAccessRequestService {
     return this.http.post<HowellResponse>(url).then((x) => {
       return x.FaultCode === 0
     })
+  }
+}
+class SystemNetworkNVRRequestService {
+  constructor(private http: HowellAuthHttp) {}
+
+  async get() {
+    let url = ArmSystemUrl.network.nvr()
+    let response = await this.http.get<HowellResponse<NVRConfig>>(url)
+    return plainToInstance(NVRConfig, response.Data)
+  }
+  async update(data: NVRConfig) {
+    let plain = instanceToPlain(data)
+    let url = ArmSystemUrl.network.nvr()
+    let response = await this.http.put<any, HowellResponse<NVRConfig>>(
+      url,
+      plain
+    )
+    return plainToInstance(NVRConfig, response.Data)
   }
 }

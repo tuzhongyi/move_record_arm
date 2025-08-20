@@ -7,6 +7,7 @@ import { NavigationDeviceGpsStorage } from './navigation-device-gps.storage'
 import { NavigationDeviceUsbStorage } from './navigation-device-usb.storage'
 import { NavigationNetworkConfigStorage } from './navigation-network-config.storage'
 import { NavigationNetworkFrpStorage } from './navigation-network-frp.storage'
+import { NavigationNetworkNVRStorage } from './navigation-network-nvr.storage'
 import { NavigationNetworkServerStorage } from './navigation-network-server.storage'
 import { NavigationRecordConfigStorage } from './navigation-record-config.storage'
 import { NavigationRecordFileStorage } from './navigation-record-file.storage'
@@ -64,6 +65,7 @@ export class NavigationStorage implements IStorage<NavigationIndex> {
     config: new NavigationNetworkConfigStorage(),
     server: new NavigationNetworkServerStorage(),
     frp: new NavigationNetworkFrpStorage(),
+    nvr: new NavigationNetworkNVRStorage(),
   }
   device = {
     channel: new NavigationDeviceChannelStorage(),
