@@ -1,7 +1,7 @@
 import { EventEmitter } from '../../../event-emitter'
 import { UploadControlEventArgs } from './upload-control.event'
 import './upload-control.less'
-import { FileReadType } from './upload-control.model'
+import { FileReadType, UploadFile } from './upload-control.model'
 
 export class UploadControl {
   private _accept?: string
@@ -46,7 +46,8 @@ export class UploadControl {
     }
   }
 
-  private async uploadFile(file: any) {
+  private async uploadFile(file: File) {
+    let filename = file.name
     var reader = new FileReader()
     switch (this.type) {
       case FileReadType.ArrayBuffer:
@@ -67,7 +68,11 @@ export class UploadControl {
     }
 
     reader.addEventListener('loadend', () => {
-      this.event.emit('upload', reader.result)
+      let file: UploadFile = {
+        filename: filename,
+        result: reader.result,
+      }
+      this.event.emit('upload', file)
     })
   }
 }

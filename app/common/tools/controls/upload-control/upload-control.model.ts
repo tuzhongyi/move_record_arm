@@ -4,4 +4,9 @@ export enum FileReadType {
   DataURL,
   Text,
 }
-export type FileResult = string | ArrayBuffer | null;
+export type FileResult = string | ArrayBuffer | null
+
+export interface UploadFile {
+  result: FileResult
+  filename: string
+}

@@ -48,12 +48,26 @@ export class ArmSystemRequestService {
     },
   }
   firmware = {
-    update: async (data: BinaryData) => {
+    update: async (filename: string, data: BinaryData) => {
       let url = ArmSystemUrl.updateFirmware()
-      let response = await this.http.post<BinaryData, HowellResponse>(url, data)
+      let form = this.uploadconvert(filename, data)
+      console.log(form)
+      let response = await this.http.post<HowellResponse, FormData>(url, form, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
       return response.FaultCode === 0
     },
   }
+
+  private uploadconvert(filename: string, file: BinaryData): FormData {
+    const data = new FormData()
+    const blob = new Blob([file as ArrayBuffer])
+    data.append('file', blob, filename)
+    return data
+  }
+
   status = {
     upgrade: async () => {
       let url = ArmSystemUrl.status.upgrade()

@@ -1,5 +1,5 @@
-import { FileResult } from './upload-control.model'
+import { UploadFile } from './upload-control.model'
 
 export interface UploadControlEventArgs {
-  upload: (args: FileResult) => void
+  upload: (args: UploadFile) => void
 }

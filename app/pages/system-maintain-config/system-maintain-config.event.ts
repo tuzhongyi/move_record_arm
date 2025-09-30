@@ -1,3 +1,4 @@
+import { UploadFile } from '../../common/tools/controls/upload-control/upload-control.model'
 import { FactoryResetMode } from '../../data-core/enums/factory-reset-mode.enum'
 
 export interface SystemMaintainConfigEvent {
@@ -6,6 +7,6 @@ export interface SystemMaintainConfigEvent {
   factoryreset(mode: FactoryResetMode): void
   configdownload(): void
 
-  configupload(file: ArrayBuffer): void
-  upgradeupload(file: ArrayBuffer): void
+  configupload(file: UploadFile): void
+  upgradeupload(file: UploadFile): void
 }
